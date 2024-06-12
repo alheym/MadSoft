@@ -57,6 +57,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@app': path.resolve(__dirname, 'src/app'),
       '@utils': path.resolve(__dirname, 'src/utils'),
+      '@mui/styled-engine': '@mui/styled-engine-sc',
     },
   },
 }

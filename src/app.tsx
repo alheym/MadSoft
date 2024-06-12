@@ -1,15 +1,20 @@
-import React, { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
-import HelloWorld from '@components/HelloWorld'
 import { GlobalStyle } from './global-styles'
+import { TestPage } from './pages'
 
 const container = document.getElementById('root') as HTMLElement
 
 const initialChildren = (
   <StrictMode>
     <GlobalStyle />
-    <HelloWorld />
+    <Router>
+      <Routes>
+        <Route path="/" element={<TestPage />} />
+      </Routes>
+    </Router>
   </StrictMode>
 )
 
