@@ -26,20 +26,6 @@ export const TestPage: FC = () => {
   })
 
   useEffect(() => {
-    const savedAnswers = localStorage.getItem('testAnswers')
-    if (savedAnswers) {
-      setAnswers(JSON.parse(savedAnswers))
-    }
-  }, [])
-
-  useEffect(() => {
-    const savedStep = localStorage.getItem('currentStep')
-    if (savedStep) {
-      setCurrentStep(parseInt(savedStep, 10))
-    }
-  }, [])
-
-  useEffect(() => {
     localStorage.setItem('testAnswers', JSON.stringify(answers))
   }, [answers])
 

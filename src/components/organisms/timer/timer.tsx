@@ -40,7 +40,7 @@ export const Timer: FC<TimerProps> = ({ initialTime, onExpire }) => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [initialTime, onExpire])
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('testTime', time.toString())

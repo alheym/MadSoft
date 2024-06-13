@@ -16,6 +16,8 @@ export const TestSection: FC<TestSectionProps> = ({
   handlePrevious,
   handleCompletion,
 }) => {
+  const [lastQuestion, setLastQuestion] = useState(false)
+
   const { questions, time } = questionsData
 
   const [testStarted, setTestStarted] = useState(() => {
@@ -27,6 +29,10 @@ export const TestSection: FC<TestSectionProps> = ({
     localStorage.setItem('testStarted', testStarted.toString())
   }, [testStarted])
 
+  useEffect(() => {
+    if (currentStep === questions.length - 1) setLastQuestion(true)
+  }, [currentStep])
+
   const startTest = () => {
     setTestStarted(true)
   }
@@ -37,6 +43,7 @@ export const TestSection: FC<TestSectionProps> = ({
 
   const handleComplete = useCallback(() => {
     setTestStarted(false)
+    setLastQuestion(false)
     handleCompletion()
   }, [handleCompletion])
 
@@ -45,10 +52,8 @@ export const TestSection: FC<TestSectionProps> = ({
   }, [questions, currentStep])
 
   const isUnanswered = (index: number) => {
-    if (index < currentStep && !answers.find(a => a.questionId === questions[index].id)) {
-      return true
-    }
-    return false
+    const isAnswered = answers.some(a => a.questionId === questions[index].id)
+    return (index < currentStep || lastQuestion) && !isAnswered
   }
 
   return (
