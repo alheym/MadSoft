@@ -4,7 +4,7 @@ import { QuestionForm, Timer } from '@components/organisms'
 import DoneIcon from '@mui/icons-material/Done'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
-import { Container, HeaderSteps, NavigationButton, NavigationButtonContainer, StartButtonWrapper, Step, StepsInfo } from './styles'
+import { Container, HeaderSteps, NavigationButton, NavigationButtonContainer, StartButton, StartButtonWrapper, Step, StepsInfo } from './styles'
 import type { TestSectionProps } from './types'
 
 export const TestSection: FC<TestSectionProps> = ({
@@ -82,9 +82,9 @@ export const TestSection: FC<TestSectionProps> = ({
         </>
       ) : (
         <StartButtonWrapper>
-          <NavigationButton onClick={handleStart} size="large" variant="outlined">
+          <StartButton onClick={handleStart} size="large" variant="outlined">
             Начать тест
-          </NavigationButton>
+          </StartButton>
         </StartButtonWrapper>
       )}
     </Container>

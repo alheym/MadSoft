@@ -6,9 +6,7 @@ export const TimerWrapper = styled.div`
   justify-content: center;
   width: 80px;
   height: 40px;
-  background-color: grey;
+  border: 1px solid var(--text);
   border-radius: 4px;
-  color: white;
   font-size: 20px;
-  font-weight: 500;
 `

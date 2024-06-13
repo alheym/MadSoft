@@ -10,13 +10,16 @@ export const Container = styled.div`
 
 export const StepsInfo = styled.div`
   display: flex;
+  width: 100%;
   gap: 6px;
+  margin-right: 30px;
 `
 
 const StepStyle = css<StepProps>`
-  height: 4px;
-  width: 50px;
-  background-color: ${({ $currentStep, $unansweredStep }) => ($currentStep ? 'aqua' : $unansweredStep ? 'red' : 'gray')};
+  height: 5px;
+  width: 100%;
+  max-width: 60px;
+  background-color: ${({ $currentStep, $unansweredStep }) => ($currentStep ? `var(--text)` : $unansweredStep ? 'red' : 'lightgray')};
 `
 
 export const Step = styled.div<StepProps>`
@@ -43,18 +46,7 @@ export const NavigationButton = styled(Button)`
   height: 40px;
   min-width: 56px;
 `
-export const Timer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 40px;
-  background-color: grey;
-  border-radius: 4px;
-  color: white;
-  font-size: 20px;
-  font-weight: 500;
-`
+
 export const HeaderSteps = styled.div`
   display: flex;
   width: 100%;
@@ -68,4 +60,7 @@ export const StartButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+export const StartButton = styled(Button)`
+  font-size: 28px;
 `

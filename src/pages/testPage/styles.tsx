@@ -17,6 +17,7 @@ export const CompletedSection = styled.section`
   justify-content: center;
   gap: 30px;
   width: 100%;
+  height: 100%;
 
   h1 {
     width: max-content;
