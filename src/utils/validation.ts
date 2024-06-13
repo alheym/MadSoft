@@ -2,6 +2,11 @@ import { z } from 'zod'
 
 export type QuestionType = 'single-choice' | 'multiple-choice' | 'short-answer' | 'long-answer'
 
+export interface QuestionsData {
+  questions: Question[]
+  time: number
+}
+
 export interface Question {
   id: number
   type: QuestionType

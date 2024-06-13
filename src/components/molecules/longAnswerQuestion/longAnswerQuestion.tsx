@@ -24,7 +24,7 @@ export const LongAnswerQuestion: FC<LongAnswerQuestionProps> = ({ question, answ
       <Controller
         name="answer"
         control={control}
-        render={({ field }) => <TextField {...field} multiline rows={4} fullWidth onChange={handleTextFieldChange} />}
+        render={({ field }) => <TextField {...field} multiline rows={4} fullWidth onChange={handleTextFieldChange} value={field.value || ''} />}
       />
     </form>
   )

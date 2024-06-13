@@ -1,9 +1,5 @@
 import { Box, Button } from '@mui/material'
-import styled, { css } from 'styled-components'
-
-interface StepProps {
-  currentStep: boolean
-}
+import styled from 'styled-components'
 
 export const Container = styled(Box)`
   display: flex;
@@ -14,39 +10,17 @@ export const Container = styled(Box)`
   padding: 20px;
   justify-content: space-between;
 `
-
-export const ButtonContainer = styled.div`
+export const CompletedSection = styled.section`
   display: flex;
-  width: 100%;
-  gap: 8px;
-  align-items: end;
-  justify-content: end;
   flex-direction: column;
-`
-
-export const NavigationButtonContainer = styled.div`
-  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
   width: 100%;
-  gap: 8px;
-  justify-content: end;
-`
 
-export const NavigationButton = styled(Button)`
-  height: 40px;
-  min-width: 56px;
+  h1 {
+    width: max-content;
+    font-size: 56px;
+  }
 `
-export const StepsInfo = styled.div`
-  display: flex;
-  gap: 6px;
-  height: 40px;
-`
-
-const StepStyle = css<StepProps>`
-  height: 4px;
-  width: 50px;
-  background-color: ${({ currentStep }) => (currentStep ? 'aqua' : 'gray')};
-`
-
-export const Step = styled.div<StepProps>`
-  ${StepStyle}
-`
+export const RefreshButton = styled(Button)``

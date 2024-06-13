@@ -24,7 +24,7 @@ export const SingleChoiceQuestion: FC<SingleChoiceQuestionProps> = ({ question, 
         name="answer"
         control={control}
         render={({ field }) => (
-          <RadioGroup {...field} value={field.value} onChange={e => handleRadioChange(e.target.value)}>
+          <RadioGroup {...field} value={field.value || ''} onChange={e => handleRadioChange(e.target.value)}>
             {question.options?.map(option => <FormControlLabel key={option} value={option} control={<Radio />} label={option} />)}
           </RadioGroup>
         )}

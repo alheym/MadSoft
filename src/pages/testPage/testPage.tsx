@@ -1,23 +1,29 @@
-import DoneIcon from '@mui/icons-material/Done'
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
-import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import { FC, useEffect, useState } from 'react'
 
-import { QuestionForm } from '@components/organisms'
-import { mockQuestions } from '@constants/mock'
-import { Answer, Question } from '@utils/validation'
-import { Container, NavigationButton, NavigationButtonContainer, Step, StepsInfo } from './styles'
+import { TestSection } from '@components/organisms'
+
+import { mockQuestions } from '@mocks/mock'
+import { Answer, QuestionsData } from '@utils/validation'
+import { CompletedSection, Container, RefreshButton } from './styles'
 
 export const TestPage: FC = () => {
-  const [questions, setQuestions] = useState<Question[]>(mockQuestions)
+  const [questions, setQuestions] = useState<QuestionsData>(mockQuestions)
 
-  const storedStep = localStorage.getItem('currentStep')
-  const initialStep = storedStep ? parseFloat(storedStep) : 0
-  const [currentStep, setCurrentStep] = useState(initialStep)
+  const [isCompleted, setIsCompleted] = useState(() => {
+    const storedIsCompleted = localStorage.getItem('completed')
+    return storedIsCompleted ? JSON.parse(storedIsCompleted) : false
+  })
 
-  const storedAnswers = localStorage.getItem('testAnswers')
-  const initialAnswers: Answer[] = storedAnswers ? JSON.parse(storedAnswers) : []
-  const [answers, setAnswers] = useState<Answer[]>(initialAnswers)
+  const [currentStep, setCurrentStep] = useState(() => {
+    const storedStep = localStorage.getItem('currentStep')
+    return storedStep ? parseFloat(storedStep) : 0
+  })
+
+  const [answers, setAnswers] = useState<Answer[]>(() => {
+    const storedAnswers = localStorage.getItem('testAnswers')
+    return storedAnswers ? JSON.parse(storedAnswers) : []
+  })
 
   useEffect(() => {
     const savedAnswers = localStorage.getItem('testAnswers')
@@ -41,6 +47,10 @@ export const TestPage: FC = () => {
     localStorage.setItem('currentStep', currentStep.toString())
   }, [currentStep])
 
+  useEffect(() => {
+    localStorage.setItem('completed', isCompleted.toString())
+  }, [isCompleted])
+
   const handleAnswerChange = (answer: Answer) => {
     const updatedAnswers = [...answers]
     const answerIndex = updatedAnswers.findIndex(a => a.questionId === answer.questionId)
@@ -54,7 +64,7 @@ export const TestPage: FC = () => {
   }
 
   const handleNext = () => {
-    if (currentStep < questions.length - 1) {
+    if (currentStep < questions.questions.length - 1) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -66,38 +76,37 @@ export const TestPage: FC = () => {
   }
 
   const handleCompletion = () => {
+    setIsCompleted(true)
+  }
+
+  const handleRefresh = () => {
+    setIsCompleted(false)
     localStorage.clear()
     setQuestions(mockQuestions)
     setCurrentStep(0)
     setAnswers([])
   }
 
-  const answer = questions.length > 0 ? answers.find(a => a.questionId === questions[currentStep].id) : undefined
-
   return (
     <Container>
-      <StepsInfo>
-        {questions.map((question, index) => (
-          <Step key={index} currentStep={index === currentStep} />
-        ))}
-      </StepsInfo>
-
-      {questions.length > 0 && <QuestionForm question={questions[currentStep]} answer={answer} onAnswerChange={handleAnswerChange} />}
-
-      <NavigationButtonContainer>
-        <NavigationButton onClick={handlePrevious} disabled={currentStep === 0}>
-          <NavigateBeforeIcon sx={{ fontSize: 40 }} />
-        </NavigationButton>
-        {currentStep === questions.length - 1 ? (
-          <NavigationButton onClick={handleCompletion} color="success">
-            <DoneIcon color="success" fontSize="large" />
-          </NavigationButton>
-        ) : (
-          <NavigationButton onClick={handleNext} disabled={currentStep === questions.length - 1}>
-            <NavigateNextIcon sx={{ fontSize: 40 }} />
-          </NavigationButton>
-        )}
-      </NavigationButtonContainer>
+      {isCompleted ? (
+        <CompletedSection>
+          <h1>Tест пройден</h1>
+          <RefreshButton onClick={handleRefresh} size="large">
+            <RefreshIcon sx={{ fontSize: 56 }} />
+          </RefreshButton>
+        </CompletedSection>
+      ) : (
+        <TestSection
+          questionsData={questions}
+          currentStep={currentStep}
+          answers={answers}
+          handleAnswerChange={handleAnswerChange}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          handleCompletion={handleCompletion}
+        />
+      )}
     </Container>
   )
 }

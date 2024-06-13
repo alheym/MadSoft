@@ -21,7 +21,11 @@ export const ShortAnswerQuestion: FC<ShortAnswerQuestionProps> = ({ question, an
   return (
     <form>
       <h3>{question.questionText}</h3>
-      <Controller name="answer" control={control} render={({ field }) => <TextField {...field} fullWidth onChange={handleTextFieldChange} />} />
+      <Controller
+        name="answer"
+        control={control}
+        render={({ field }) => <TextField {...field} fullWidth onChange={handleTextFieldChange} value={field.value || ''} />}
+      />
     </form>
   )
 }
