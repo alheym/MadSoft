@@ -1,5 +1,5 @@
 {
-  "name": "React application template with webpack and typescript",
+  "name": "MADSOFT",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --config ./webpack.prod.config.js",
